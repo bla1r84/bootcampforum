@@ -1,0 +1,12 @@
+PrivateMessage [senderID=1, receiverID=2, text=test message, date=2018-04-23 11:04:11.086]
+
+PrivateMessage [senderID=1, receiverID=3, text=test test test, date=2018-04-23 11:07:51.262]
+
+PrivateMessage [senderID=1, receiverID=2, text=test message to user2, date=2018-04-23 11:10:56.825]
+
+PrivateMessage [senderID=1, receiverID=3, text=Message with apostrophe '', date=2018-04-23 11:15:40.075]
+
+PrivateMessage [senderID=6, receiverID=1, text=test message '', date=2018-04-23 12:15:44.195]
+
+PrivateMessage [senderID=6, receiverID=4, text=test test test, date=2018-04-23 12:16:02.368]
+
