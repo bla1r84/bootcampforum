@@ -21,17 +21,21 @@ public class Forum {
 				}while (forumOption<0 || forumOption>3);
 				switch (forumOption){
 				case 1:
+					User.checkUserStatus();
 					int topicID = selectTopic(); 
 					Topic.process(myUser,topicID);
 					break;
 				case 2:
+					User.checkUserStatus();
 					createTopic();
 					break;
 				case 3:
+					User.checkUserStatus();
 					topicID = selectTopic();
 					deleteTopic(topicID);
 					break;
 				case 0:
+					User.checkUserStatus();
 					return 0;
 				}
 			}while(forumOption !=0); 
@@ -47,13 +51,16 @@ public class Forum {
 				}while (forumOption<0 || forumOption>2);
 				switch (forumOption){
 				case 1:
+					User.checkUserStatus();
 					int topicID = selectTopic(); 
 					Topic.process(myUser,topicID);
 					break;
 				case 2:
+					User.checkUserStatus();
 					createTopic();
 					break;
 				case 0:
+					User.checkUserStatus();
 					return 0;
 				}
 			}while(forumOption !=0);
@@ -129,6 +136,7 @@ public class Forum {
 		Timestamp dateTimePosted = new Timestamp(System.currentTimeMillis());
 		DatabaseConnection dao = DatabaseConnection.getDbCon();
 		String insertTopic = "INSERT INTO Topic (creatorID,subject,dateTimePosted) VALUES (" + Main.loggedUser.getUserID() + ", '" + topicSubject + "','" + dateTimePosted + "');";
+		User.checkUserStatus();
 		try {
 			dao.insert(insertTopic);
 			String getLastID = "SELECT LAST_INSERT_ID()";
@@ -145,18 +153,8 @@ public class Forum {
 
 	public static void deleteTopic(int topicID){
 		DatabaseConnection dao = DatabaseConnection.getDbCon();
-		if (topicID != -1) {
-			String emptyTopic = "DELETE FROM TopicMessage WHERE topicID = " + topicID + ";";
-			try {
-				dao.insert(emptyTopic);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}else {
-			System.out.println("No topic found with that ID");
-			return;
-		}
 		String deleteTopic = "DELETE FROM Topic WHERE ID = " + topicID +";";
+		User.checkUserStatus();
 		try {
 			int topicDeleted = dao.insert(deleteTopic);
 			if (topicDeleted > 0)

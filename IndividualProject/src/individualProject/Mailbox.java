@@ -18,12 +18,15 @@ public class Mailbox {
 	public static void mailboxAction(int mailboxOption) throws SQLException{
 		switch (mailboxOption){
 		case 1:
+			User.checkUserStatus();
 			viewIncomingMessages();
 			break;
 		case 2:
+			User.checkUserStatus();
 			viewSentMessages();
 			break;
 		case 3:
+			User.checkUserStatus();
 			sendMessage();
 			break;
 		}
@@ -83,6 +86,7 @@ public class Mailbox {
 		}while(text.length()>250);
 		text = text.replace("'", "''");
 		Timestamp currentDateTime = new Timestamp(System.currentTimeMillis());
+		User.checkUserStatus();
 		PrivateMessage newMessage = new PrivateMessage(Main.loggedUser.getUserID(),receivingUser.getUserID(),text,currentDateTime);
 		PrivateMessage.sendPrivateMessage(Main.loggedUser, receivingUser, text, currentDateTime);
 		writeMessageToFile(newMessage.toString());

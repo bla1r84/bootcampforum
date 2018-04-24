@@ -17,10 +17,13 @@ public class LoggedUserPanel {
 				}
 				switch (choice) {
 				case 1:
+					User.checkUserStatus();
 					changePassword(Main.loggedUser);
 					break;
 				case 2:
+					User.checkUserStatus();
 					int mailboxOption = 0;
+					
 					do {
 						do {
 							Mailbox.displayMailboxOptions();
@@ -32,18 +35,21 @@ public class LoggedUserPanel {
 					}while(mailboxOption!=0);
 					break;
 				case 3:
+					User.checkUserStatus();
 					int forumOption = 0;
 					do {
 						forumOption = Forum.process(myUser);
 					}while(forumOption!=0);
 					break;
 				case 4:
+					User.checkUserStatus();
 					int adminPanelOption = 0;
 					do{
 						adminPanelOption = AdminPanel.process();
 					}while(adminPanelOption!=0);
 					break;
 				case 0:
+					User.checkUserStatus();
 					Main.loggedUser = null;
 				}
 
@@ -58,9 +64,11 @@ public class LoggedUserPanel {
 				}
 				switch (choice) {
 				case 1:
+					User.checkUserStatus();
 					changePassword(Main.loggedUser);
 					break;
 				case 2:
+					User.checkUserStatus();
 					int mailboxOption = 0;
 					do {
 						Mailbox.displayMailboxOptions();
@@ -69,6 +77,7 @@ public class LoggedUserPanel {
 					}while(mailboxOption!=0);
 					break;
 				case 3:
+					User.checkUserStatus();
 					int forumOption = 0;
 					do {
 						forumOption = Forum.process(myUser);
@@ -124,6 +133,7 @@ public class LoggedUserPanel {
 		System.out.print("Enter new password: ");
 		String password = Main.sc.nextLine();
 		password = password.replace("'","''");
+		User.checkUserStatus();
 		boolean changePasswordSuccessful = User.changePassword(myUser, password);
 		if (changePasswordSuccessful) {
 			System.out.println("Password changed successfully!");
