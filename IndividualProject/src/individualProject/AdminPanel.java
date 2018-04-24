@@ -18,9 +18,9 @@ public class AdminPanel {
 		do {
 			showAdminOptions();
 			choice = chooseAdminOption();
-			if (choice<0 || choice>4)
+			if (choice<0 || choice>5)
 				System.out.println("Please select one of the numbers in the menu!");
-		}while(choice<0 || choice>4);
+		}while(choice<0 || choice>5);
 		switch (choice){
 		case 1:
 			User.checkUserStatus();
@@ -46,6 +46,10 @@ public class AdminPanel {
 			User.checkUserStatus();
 			deleteUser();
 			break;
+		case 5:
+			User.checkUserStatus();
+			resetForum();
+			break;
 		case 0:
 			User.checkUserStatus();
 			return 0;
@@ -61,6 +65,7 @@ public class AdminPanel {
 				"2 - to edit a user\n" +
 				"3 - to create a new user\n" +
 				"4 - to delete a user\n" +
+				"5 - to reset the forum\n" +
 				"0 - to exit the Admin Panel\n" +
 				"Choose: ");
 	} // end showAdminOptions()
@@ -141,6 +146,29 @@ public class AdminPanel {
 			e.printStackTrace();
 		}
 	} // end deleteUser()
+	
+	public static void resetForum() {
+		DatabaseConnection dao = DatabaseConnection.getDbCon();
+		System.out.println("Achtung, Achtung! This will remove all topics and messages from the forum.\nThere is no turning back!");
+		System.out.print("Type 'Y' (without quotes) to proceed: ");
+		String goAhead = Main.sc.nextLine();
+		if (goAhead.equals("Y")) {
+			System.out.print("Last chance! Type 'Y' (without quotes) again to confirm: ");
+			goAhead = Main.sc.nextLine();
+			if (goAhead.equals("Y")) {
+				String resetForum = "DELETE FROM Topic";
+				User.checkUserStatus();
+				try {
+				dao.insert(resetForum);
+				System.out.println("The forum has been reset!");
+				}catch(SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		if (!goAhead.equals("Y"))
+			System.out.println("No action was performed.");
+	} // end resetForum()
 
 	public static int selectUserID() {
 		int userID;
