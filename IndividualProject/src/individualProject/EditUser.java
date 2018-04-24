@@ -40,7 +40,7 @@ public class EditUser {
 			}
 		}while(choice!=0 && rs!=null);
 		return 0;
-	} // end  process()
+	} // end process()
 
 	public static void editUserOption(User selectedUser){
 		System.out.format("Editing user \"%s\"\n",selectedUser.getUsername());
