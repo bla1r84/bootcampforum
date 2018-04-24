@@ -19,15 +19,19 @@ public class EditUser {
 				}while(choice<0 || choice>3);
 				switch (choice) {
 				case 1:
+					User.checkUserStatus();
 					LoggedUserPanel.changePassword(selectedUser);
 					break;
 				case 2:
+					User.checkUserStatus();
 					changeRole(selectedUser);
 					break;
 				case 3:
+					User.checkUserStatus();
 					deleteUser(selectedUser);
 					return 0;
 				case 0:
+					User.checkUserStatus();
 					return 0;
 				}
 			}
@@ -73,6 +77,7 @@ public class EditUser {
 		if (selectedUser == null)
 			return;
 		String changeRole = "UPDATE User SET roleID = " + role + " WHERE ID = " + selectedUser.getUserID() + ";";
+		User.checkUserStatus();
 		try {
 			dao.insert(changeRole);
 			switch (role) {
@@ -100,6 +105,7 @@ public class EditUser {
 		else {
 			int userID = selectedUser.getUserID();
 			String deleteUser = "DELETE FROM User WHERE ID = " + userID + ";";
+			User.checkUserStatus();
 			try {
 				dao.insert(deleteUser);
 				System.out.println("User deleted successfully!");

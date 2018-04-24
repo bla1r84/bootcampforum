@@ -23,9 +23,11 @@ public class AdminPanel {
 		}while(choice<0 || choice>4);
 		switch (choice){
 		case 1:
+			User.checkUserStatus();
 			showAllUsers();
 			break;
 		case 2:
+			User.checkUserStatus();
 			int editUserOption = 0;
 			showAllUsers();
 			int userID = selectUserID();
@@ -37,12 +39,15 @@ public class AdminPanel {
 			}
 			break;
 		case 3:
+			User.checkUserStatus();
 			adminCreateNewUser();
 			break;
 		case 4:
+			User.checkUserStatus();
 			deleteUser();
 			break;
 		case 0:
+			User.checkUserStatus();
 			return 0;
 
 		}
@@ -103,13 +108,6 @@ public class AdminPanel {
 		}
 	} // end showAllUsers()
 
-	public static User editUser() throws SQLException {
-		showAllUsers();
-		int userID = selectUserID();
-		selectedUser = User.searchUserByID(userID);
-		return Main.loggedUser;
-	} // end editUser()
-
 	public static void adminCreateNewUser() throws SQLException{
 		System.out.println("****** Create new user screen ******");
 		System.out.print("Username: ");
@@ -123,6 +121,7 @@ public class AdminPanel {
 		String password = Main.sc.nextLine();
 		password = password.replace("'", "''");
 		int role = chooseRole();
+		User.checkUserStatus();
 		User.insertUser(username, password, role);
 	} // end adminCreateNewUser()
 
@@ -132,6 +131,7 @@ public class AdminPanel {
 		System.out.println("*WARNING*\nAll topics and messages posted in the forum,\nas well as all private messages sent and received by your selected user will be permanently removed!");
 		int userID = selectUserID();
 		String deleteUser = "DELETE FROM User WHERE ID = " + userID + ";";
+		User.checkUserStatus();
 		try {
 			if (dao.insert(deleteUser) > 0)
 				System.out.println("User deleted successfully!");
@@ -160,6 +160,7 @@ public class AdminPanel {
 	public static int chooseRole() {
 		int role;
 		do {
+			User.checkUserStatus();
 			System.out.print("Available roles\n"
 					+ "1. Administrator (Full admininistrator access, can delete users etc.)\n"
 					+ "2. Moderator (Can only edit/delete posts in the forum)\n"

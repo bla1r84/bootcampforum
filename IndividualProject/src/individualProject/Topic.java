@@ -118,21 +118,26 @@ public class Topic {
 		if (myUser.getRole() == Role.ADMIN || myUser.getRole() == Role.MODERATOR) {
 			switch (topicOption) {
 			case 1:
+				User.checkUserStatus();
 				postReply(topicID,myUser);
 				break;
 			case 2:
+				User.checkUserStatus();
 				editSubject(topicID);
 				break;
 			case 3:
+				User.checkUserStatus();
 				editMessage(getMessageID());
 				break;
 			case 4:
+				User.checkUserStatus();
 				deleteMessage(getMessageID());
 			}
 		}else
 		{
 			switch (topicOption) {
 			case 1:
+				User.checkUserStatus();
 				postReply(topicID,myUser);
 				break;
 			}
@@ -150,6 +155,7 @@ public class Topic {
 				messageText = messageText.replace("'", "''");
 				Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 				String insertNewMessage = "INSERT INTO TopicMessage (authorID, topicID, topicMessageText,dateTimePosted) VALUES ("+ myUser.getUserID() + "," + topicID + ",'" + messageText + "','" + timestamp + "');";
+				User.checkUserStatus();
 				if (dao.insert(insertNewMessage)>0)
 					System.out.println("New reply posted successfully to this topic!");
 				else
@@ -173,6 +179,7 @@ public class Topic {
 				String newSubject = Main.sc.nextLine();
 				newSubject = newSubject.replace("'","''");				
 				String editSubject = "UPDATE Topic SET subject = '" + newSubject + "' WHERE ID = " + topicID + " ;";
+				User.checkUserStatus();
 				if (dao.insert(editSubject)>0)
 					System.out.println("Subject edited successfully!");
 				else
@@ -196,6 +203,7 @@ public class Topic {
 				String newText = Main.sc.nextLine();
 				newText = newText.replace("'","''");
 				String editMessage = "UPDATE TopicMessage SET topicMessageText = '" + newText + "' WHERE ID = " + messageID + " ;";
+				User.checkUserStatus();
 				if(dao.insert(editMessage)>0)
 					System.out.println("Message edited successfully!");
 				else {
@@ -212,6 +220,7 @@ public class Topic {
 	public static void deleteMessage(int messageID){
 		DatabaseConnection dao = DatabaseConnection.getDbCon();
 		String deleteMessage = "DELETE FROM TopicMessage WHERE ID = " + messageID + " ;";
+		User.checkUserStatus();
 		try {
 			if (dao.insert(deleteMessage) > 0)
 				System.out.println("Message deleted successfully");

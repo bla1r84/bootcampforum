@@ -174,4 +174,12 @@ public class User {
 			return false;
 		}
 	} // end changePassword()
+	
+	public static void checkUserStatus() {
+		User tempUser = User.searchUserByID(Main.loggedUser.getUserID());
+		if (tempUser == null || tempUser.getRole()!=Main.loggedUser.getRole() ) {
+			System.out.println("It seems your account has been deleted or updated.\nFor security reasons, no futher action is possible.\nShutting down...");
+			System.exit(0);
+		}
+	}
 }
